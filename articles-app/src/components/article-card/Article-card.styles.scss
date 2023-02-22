@@ -1,0 +1,39 @@
+.ArticleCard {
+  position: relative;
+
+  img {
+    width: 100%;
+    height: 100%;
+  }
+  
+  .CardBody {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 1rem;
+
+    padding: 1rem 2rem;
+
+    text-align: start;
+    text-transform: capitalize;
+    color: white;
+    background-color: #00000088;
+
+    p {
+      display: flex;
+      justify-content: space-between;
+      width: 100%;
+    }
+
+    h1 {
+      font-size: 1.4rem;
+    }
+  }
+}
