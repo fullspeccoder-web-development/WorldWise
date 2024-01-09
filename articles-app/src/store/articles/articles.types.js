@@ -1,3 +1,0 @@
-export const ARTICLE_TYPES = {
-  SET_ARTICLES: "SET_ARTICLES",
-};
