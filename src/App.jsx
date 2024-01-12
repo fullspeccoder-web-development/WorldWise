@@ -6,6 +6,7 @@ import Homepage from "./pages/Homepage.jsx";
 import PageNotFound from "./pages/PageNotFound.jsx";
 import AppLayout from "./pages/AppLayout.jsx";
 import Login from "./pages/Login.jsx";
+import ProtectedRoute from "./pages/ProtectedRoute.jsx";
 
 import City from "./components/City.jsx";
 import CityList from "./components/CityList.jsx";
@@ -20,7 +21,14 @@ export default function App() {
         <Route path="product" element={<Product />} />
         <Route path="pricing" element={<Pricing />} />
         <Route path="login" element={<Login />} />
-        <Route path="app" element={<AppLayout />}>
+        <Route
+          path="app"
+          element={
+            <ProtectedRoute>
+              <AppLayout />
+            </ProtectedRoute>
+          }
+        >
           <Route index element={<Navigate replace to="cities" />} />
           <Route path="cities" element={<CityList />} />
           <Route path="cities/:id" element={<City />} />
