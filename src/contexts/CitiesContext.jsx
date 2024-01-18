@@ -1,4 +1,10 @@
-import { createContext, useContext, useEffect, useReducer } from "react";
+import {
+  createContext,
+  useCallback,
+  useContext,
+  useEffect,
+  useReducer,
+} from "react";
 
 const BASE_URL = "http://localhost:8000";
 
@@ -66,21 +72,24 @@ export function CitiesProvider({ children }) {
     fetchCities();
   }, []);
 
-  async function getCity(id) {
-    if (Number(id) === currentCity.id) return;
+  const getCity = useCallback(
+    async (id) => {
+      if (Number(id) === currentCity.id) return;
 
-    dispatch({ type: "LOADING" });
-    try {
-      const res = await fetch(`${BASE_URL}/cities/${id}`);
-      const data = await res.json();
-      dispatch({ type: "UPDATE_CITY", payload: data });
-    } catch {
-      dispatch({
-        type: "REJECTED",
-        payload: "There was an error loading the city...",
-      });
-    }
-  }
+      dispatch({ type: "LOADING" });
+      try {
+        const res = await fetch(`${BASE_URL}/cities/${id}`);
+        const data = await res.json();
+        dispatch({ type: "UPDATE_CITY", payload: data });
+      } catch {
+        dispatch({
+          type: "REJECTED",
+          payload: "There was an error loading the city...",
+        });
+      }
+    },
+    [currentCity.id]
+  );
 
   async function createCity(newCity) {
     dispatch({ type: "LOADING" });
@@ -131,6 +140,7 @@ export function CitiesProvider({ children }) {
   );
 }
 
+// eslint-disable-next-line react-refresh/only-export-components
 export function useCities() {
   const context = useContext(CitiesContext);
   if (context === undefined)
